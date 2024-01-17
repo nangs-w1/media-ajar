@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfkit/0.11.0/pdfkit.js"></script>
+    <title>Materi Pembelajaran</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('image/bg.gif');
+            
+            
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        h1 {
+            margin: 0;
+            display: flex; /* Mengatur tampilan judul dan gambar dalam satu baris */
+            align-items: center; /* Mengatur pemosisian vertikal ke tengah */
+        }
+
+        h1 img {
+            margin-right: 10px; /* Jarak antara gambar dan teks */
+            width: 100px; /* Ukuran gambar */
+            height: auto; /* Biarkan tingginya disesuaikan agar gambar tidak terdistorsi */
+        }
+        p img {
+            margin-right: 10px; /* Jarak antara gambar dan teks */
+            width: 200px; /* Ukuran gambar */
+            height: auto; /* Biarkan tingginya disesuaikan agar gambar tidak terdistorsi */
+        }
+
+    .container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 40px;
+    border-radius: 10px;
+    background-color: #dfe8ed;
+    box-shadow: 0 0 20px rgb(255, 225, 2);
+    transition: transform 0.3s ease-in-out; /* Efek transisi untuk smooth hover */
+}
+
+.container:hover {
+    transform: scale(1.05)translate(5px, 5px) ; /* Memperbesar elemen saat hover */
+}
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        p {
+            font-size: 20px;
+            text-align: justify;
+
+        }
+
+        textarea {
+            width: 100%;
+            height: 150px; /* Sesuaikan dengan tinggi yang Anda inginkan */
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical; /* Memungkinkan perubahan tinggi vertikal */
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center; /* Untuk mengatur teks di tengah */
+            max-width: 300px; /* Contoh lebar maksimum, sesuaikan dengan kebutuhan Anda */
+        }
+        input[type="text1"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center; /* Untuk mengatur teks di tengah */
+            max-width: 50px; /* Contoh lebar maksimum, sesuaikan dengan kebutuhan Anda */
+        }
+        input[type="text2"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            margin: 10px;
+            border-radius: 5px;
+            text-align: center; /* Untuk mengatur teks di tengah */
+            max-width: 200px; /* Contoh lebar maksimum, sesuaikan dengan kebutuhan Anda */
+        }
+
+        /* Gaya tombol */
+        #kirimJawaban {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Animasi hover tombol */
+        #kirimJawaban:hover {
+            background-color: #0056b3;
+        }
+        
+
+        /* Gaya container baru */
+        .container-baru {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Animasi gambar diagram */
+        .animated-diagram {
+            animation-name: slideIn; /* Nama animasi */
+            animation-duration: 2s; /* Durasi animasi (2 detik) */
+            animation-timing-function: ease; /* Fungsi waktu animasi (percepatan awal dan akhir) */
+        }
+        .diagram:hover {
+    /* Efek muncul ke depan saat dihover */
+    transform: scale(1.05); /* Memperbesar elemen saat dihover */
+    z-index: 2; /* Z-index saat dihover (ke depan elemen lain) */
+    }
+
+        /* Keyframes untuk animasi slideIn */
+        @keyframes slideIn {
+            0% {
+                transform: translateX(-100%); /* Mulai dari luar layar sebelah kiri */
+            }
+            100% {
+                transform: translateX(0); /* Akhir di posisi awal */
+            }
+        }
+
+        /* Gaya untuk kotak pertanyaan dan jawaban */
+        fieldset {
+            border: 2px solid #007BFF;
+            border-radius: 5px;
+            padding: 10px;
+            margin-top: 20px;
+        }
+
+        legend {
+            font-weight: bold;
+            color: #007BFF;
+        }
+
+        .pertanyaan-box {
+            margin-bottom: 10px;
+        }
+
+        /* Gaya untuk kotak jawaban */
+        .jawaban {
+            width: 100%;
+            height: 50px; /* Ubah tinggi sesuai kebutuhan Anda */
+            border: 1px solid #d8cf22;
+            border-radius: 5px;
+            resize: vertical;
+            background-color: #d8cf22;
+        }
+
+        .diagram {
+    /* Gaya untuk diagram */
+        max-width: 100%; /* Lebar maksimum 100% dari container */
+        height: auto; /* Biarkan tingginya disesuaikan agar gambar tidak terdistorsi */
+        transition: transform 0.3s ease, z-index 0.3s ease; /* Efek transisi untuk mengubah transformasi dan z-index */
+     position: relative; /* Menentukan posisi elemen */
+        z-index: 1; /* Z-index awal (di belakang elemen lain) */
+    }
+        /* Gaya untuk tombol suara */
+        #soundButton {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        #soundImage {
+            width: 40px;
+            height: 40px;
+        }
+        .box-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box {
+            width: 300px;
+            padding: 20px;
+            background-color: rgba(52, 152, 219, 0.8);
+            margin: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #fff;
+            font-size: 18px;
+            transition: transform 0.3s ease-in-out;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .box:hover {
+            transform: scale(1.1);
+        }
+        .description-box {
+            background-color: rgba(1, 18, 29, 0.8);
+            color: #fff;
+            text-align: justify;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            display: none;
+            text-align: left;
+            position: absolute;
+            top: 100%; /* Letakkan di bawah box */
+            left: 0;
+            right: 0;
+            z-index: 1; /* Tampilkan di atas box */
+        }
+
+        .box.active .description-box {
+            display: block;
+        }
+
+        .animate-button {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .animate-button button {
+            background-color: #e74c3c;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .animate-button button:hover {
+            background-color: #c0392b;
+        }
+        /*UNTUK PILGAN*/
+        .question {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .quiz-container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        max-width: 600px;
+        margin: 0 auto;
+        }
+        select {
+        width: 20%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        text-align: center;
+        font-size: 18px;
+        appearance: none; /* Menghapus default arrow pada Firefox */
+        -webkit-appearance: none; /* Menghapus default arrow pada Chrome dan Safari */
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 20px 20px;
+        cursor: pointer;
+}
+
+        .options {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .option {
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .option:hover {
+            background-color: #007BFF;
+            color: #fff;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    /* Aturan CSS untuk layar besar (desktop) */
+   
+
+    /* Aturan CSS untuk layar menengah (tablet) */
+    @media screen and (max-width: 1023px) {
+        /* Tambahkan gaya CSS untuk layar menengah di sini */
+        .container {
+            max-width: 100%;
+            flex-direction: column;
+        }
+
+        .left-content,
+        .right-content {
+            flex: none;
+            width: 100%;
+        }
+
+        .container h1 {
+            font-size: 20px;
+        }
+
+        .container p {
+            font-size: 14px;
+        }
+    }
+
+    /* Aturan CSS untuk layar kecil (ponsel) */
+    @media screen and (max-width: 767px) {
+        /* Tambahkan gaya CSS untuk layar kecil di sini */
+        .container {
+            max-width: 100%;
+            flex-direction: column;
+        }
+
+        .left-content,
+        .right-content {
+            flex: none;
+            width: 100%;
+        }
+
+        .container h1 {
+            font-size: 18px;
+        }
+
+        .container p {
+            font-size: 12px;
+        }
+        .box {
+        width: 100%; /* Mengisi lebar layar penuh */
+        margin: 10px; /* Mengurangi margin agar tidak terlalu dekat dengan tepi layar */
+        padding: 10px; /* Mengurangi padding agar lebih kompak */
+        font-size: 16px; /* Mengurangi ukuran font agar sesuai dengan layar kecil */
+    }
+    }
+
+   </style>
+</head>
+<body>
+    <header>
+    </header>
+
+    <div class="container">
+        <h1>
+            <img src="image/mengamati.gif" alt="Gambar Kecil"> AYO MENGAMATI !
+        </h1>
+        <h2>Perhatikan Vidio Animasi Berikut</h2>
+        <div class="video-container">
+            <iframe src="https://www.youtube.com/embed/zsp15ttcbFA" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <p>
+            <h3>Setelah mengamati vidio di atas, jawablah pertanyaan berikut ini !</h3>
+        </p>
+        <!-- Form Nama Pengirim Jawaban -->
+        <p>
+        <label for="namaPengirim">Nama :</label>
+        <input type="text" id="namaPengirim" name="namaPengirim" placeholder="Masukkan Nama Anda">
+        </p>
+
+        <p>
+            <!-- Form Kelas Pengirim Jawaban -->
+            <label for="kelasPengirim">Kelas :</label>
+            <input type="text" id="kelasPengirim" name="kelasPengirim" placeholder="Masukkan Kelas Anda">
+        </p>
+
+        <!-- Kotak Jawabanvidio1 -->
+        <p>1. Apa yang kamu dapatkan dalam vidio tersebut ?</p>
+        <textarea id="jawabanmengamatividio1" name="jawabanmengamatividio1" rows="4" cols="50"></textarea>
+        <!-- Kotak Jawabanvidio2 -->
+        <p>2. Bagaimana kita menyajikan data pertumbuhan tomat tersebut agar lebih mudah dibaca atau dipahami ?</p>
+        <textarea id="jawabanmengamatividio2" name="jawabanmengamatividio2" rows="4" cols="50"></textarea>
+        
+    </div>
+    
+
+    <!-- Container Baru -->
+    <div class="container">
+        <!-- Isi container baru di sini -->
+        <h2>COBA PERHATIKAN !</h2>
+        <p>Perlu kalian ketahui bahwa ada beberapa macam penyajian data dalam bentuk diagram yaitu diagram batang, diagram garis, dan diagram lingkarang.
+            Apa itu ? Dan bagaimana perbedaan nya ? Mari kita bahas bersama !
+        </p>
+        <h2>1. Diagram Batang</h2>
+        <p>Diagram batang biasanya digunakan untuk menggambarkan perkembangan nilai suatu objek dalam kurun waktu tertentu.</p>
+        <p>Berdasarkan vidio yang telah kalian amati, berikut adalah gambar diagram batang mengenai pertumbuhan tanaman tomat pada hari ke - 10 sampai hari ke - 16</p>
+        <!-- Tambahkan gambar diagram dengan animasi -->
+        <img class="animated-diagram diagram" src="image/dg.png" alt="Diagram">
+        <p>Diagram di atas menunjukkan bahwa pada hari ke-10 tinggi tanaman tomat adalah 8 cm, pada hari ke-11 adalah 8,5 cm, dan seterusnya.</p>
+        <p>Temukan juga keterangan-keterangan lain yang dapat kalian peroleh dari diagram batang di atas.</p>
+
+        <!-- Pertanyaan dan jawaban -->
+
+        <h3>a. Tentukan tinggi tanaman Tomat pada hari ke - :</h3>
+        <fieldset>
+            <!-- Pertanyaan dan jawaban untuk hari ke-3 -->
+            <div class="pertanyaan-box">
+                <p>Tentukan tinggi tanaman Tomat pada hari ke-12:</p>
+                <textarea class="jawaban" id="jawabanHari3" name="jawabanHari3" rows="2" cols="50"></textarea>
+            </div>
+
+            <!-- Pertanyaan dan jawaban untuk hari ke-4 -->
+            <div class="pertanyaan-box">
+                <p>Tentukan tinggi tanaman Tomat pada hari ke-13:</p>
+                <textarea class="jawaban" id="jawabanHari4" name="jawabanHari4" rows="2" cols="50"></textarea>
+            </div>
+
+            <!-- Pertanyaan dan jawaban untuk hari ke-5 -->
+            <div class="pertanyaan-box">
+                <p>Tentukan tinggi tanaman Tomat pada hari ke-14:</p>
+                <textarea class="jawaban" id="jawabanHari5" name="jawabanHari5" rows="2" cols="50"></textarea>
+            </div>
+
+            <!-- Pertanyaan dan jawaban untuk hari ke-7 -->
+            <div class="pertanyaan-box">
+                <p>Tentukan tinggi tanaman Tomat pada hari ke-15:</p>
+                <textarea class="jawaban" id="jawabanHari7" name="jawabanHari7" rows="2" cols="50"></textarea>
+            </div>
+            <!-- Dan seterusnya untuk hari-hari berikutnya -->
+        </fieldset>
+        <h3>b. Secara berturut - turut pertumbuhan tanaman tomat paling tinggi terjadi pada hari ?</h3>
+            <!-- Form B Pengirim Jawaban -->
+        <label for="tinggiHari1">Ke:</label>
+        <input type="text" id="tinggiHari1" name="tinggiHari1" placeholder=".............">
+        <label for="tinggiHari2">dan hari ke :</label>
+        <input type="text" id="tinggiHari2" name="tinggiHari2" placeholder=".........">
+        <p>
+        <label for="selisih"><h3>c. Selisih tinggi tanaman tomat dihari ke - 13 sampai hari ke - 16 adalah ?</h3></label>
+        <input type="text" id="selisih" name="selisih" placeholder="......"> Cm
+        </p>
+    </div>
+    <!--CONTAINER AYO MENANYA-->
+    <div class="container">
+        <h1>
+            <img src="image/latih.gif" alt="Gambar Kecil"> AYO MENANYA !
+        </h1>
+        <p>
+            Setelah mengamati, buatlah minimal satu pertanyaan yang dapat kamu ajukan !
+            <p>
+               Misalnya : Bagaimana cara kita menyajikan dan menafsirkan data ? 
+            </p>
+        </p>
+        <!--LABEL PERTANYAAN AYO MENANYA-->
+        <p>Pertanyaan 1</p>
+        <div class="pertanyaan-box">
+            <textarea class="jawaban" id="pertanyaan1" name="pertanyaan1" rows="2" cols="50"></textarea>
+        </div>
+        <div class="pertanyaan-box">
+            <p>Pertanyaan 2</p>
+            <textarea class="jawaban" id="pertanyaan2" name="pertanyaan2" rows="2" cols="50"></textarea>
+        </div>
+        <div class="pertanyaan-box">
+            <p>Pertanyaan 3</p>
+            <textarea class="jawaban" id="pertanyaan3" name="pertanyaan3" rows="2" cols="50"></textarea>
+        </div>
+    </div>
+
+    <!--CONTAINER AYO MENCOBA GARIS-->
+    <div class="container">
+        <h1>
+            <img src="image/gbr.gif" alt="Gambar Kecil"> AYO MENCOBA !
+        </h1>
+        <h2>2. Diagram Garis</h2>
+        <p>Diagram garis biasanya digunakan untuk menyajikan data dalam waktu berkala atau berkesinambungan.</p>
+        <div class="box-container">
+            <div class="box">
+                <strong>Contoh Kasus 1</strong>
+            </div>
+        </div>
+        <p>Akhir-akhir ini penjualan toko buku di toko Pak Andra sedang mengalami naik turun,biasanya pada tahun ajaran baru penjualan buku mengalami naik drastis
+            , tetapi kali ini berbeda, menurut Pak Andra jumlah pembeli turun dikarenakan buku mulai tergantikan dengan teknologi dan gadget,
+            dan penjualan akan naik ketika banyak mahasiswa yang mencari refrensi untuk skripsinya, itulah sebabnya penjulan buku ahir-ahir ini naik turun.
+            Berikut adalah omzet penjualan buku yang di peroleh Pak Andra selama 7 hari dapat dilihat pada diagram garis di bawah ini !.
+        </p>
+        <img class="animated-diagram diagram" src="image/diagramgaris.png" alt="Diagram">
+    </div>
+    <!--CONTAINER AYO MENCOBA diagram lingkaran-->
+    <div class="container">
+        <h2>3. Diagram Lingkaran</h2>
+        <P>Diagram lingkaran biasanya digunakan untuk menyajikan data dalam bentuk persentase .</P>
+        <h3>Perhatikan diagram lingkaran berikut dibawah ini !</h3>
+        <img class="animated-diagram diagram" src="image/diagramlingkaran.png" alt="Diagram">
+        <p>Diagram lingkaran di atas menunjukan data berat badan 60 siswa di SMP Argenta.
+            Diketahui jumlah siswa yang memiliki berat badan 40 Kg sebanyak 6 siswa, 42 Kg sebanyak 15 siswa, 43 Kg Sebanyak 18 siswa,
+            dan 44 Kg sebanyak 9 siswa. Hitunglah :
+        </p>
+        <p><b>a. Berapa banyak siswa yang mempunyai berat badan 41 Kg ? Kemudian ubahlah dalam bentuk persen !</b></p>
+        <h4>Penyelesaian :</h4>
+            <p>Diketahui bahwa, <p>berat badan 40 Kg = 6 siswa</p></p>
+        <p>
+        <label for="beratbadan1">Berat badan 42 Kg =</label>
+        <input type="text1" id="beratbadan1" name="beratbadan1" placeholder="....">Siswa
+        </p>
+        <p>
+        <label for="beratbadan2">Berat badan 43 Kg =</label>
+        <input type="text1" id="beratbadan2" name="beratbadan2" placeholder="....">Siswa
+        </p>
+        <p>Berat badan 44 Kg = 9 Siswa</p>
+        <p>Jika jumlah seluruh siswa sebanyak 60 siswa, maka banyak siswa yang mempunyai berat badan 41 Kg yaitu,</p>
+        <p>= 60 - (6+15+18+9) Siswa</p>
+        <p>
+        <label for="beratbadan3">= 60 -</label>
+        <input type="text1" id="beratbadan3" name="beratbadan3" placeholder="....">Siswa
+        </p>
+        <p>
+        <label for="beratbadan4">= </label>
+        <input type="text1" id="beratbadan4" name="beratbadan4" placeholder="....">Siswa
+        </p>
+        <p>
+        <label for="beratbadan5">Jadi, berat badan 41 Kg dimiliki oleh</label>
+        <input type="text1" id="beratbadan5" name="beratbadan5" placeholder="....">Siswa
+        </p>
+        <p>Mengubah dalam bentuk persen</p>
+        <p><img src="image/rumus1.png" alt="Gambar Kecil">
+        </p>
+        <p>= <u>12 </u>X 100 %</p>
+        <p>
+        <input type="text1" id="beratbadan6" name="beratbadan6" placeholder="....">
+        </p>
+        <p>
+            <label for="beratbadan7"> = </label>
+            <input type="text1" id="beratbadan7" name="beratbadan7" placeholder="....">%
+        </p>
+        <p>
+            <label for="beratbadan8">Jadi, berat badan 41 Kg dimiliki oleh 12 Siswa adalah</label>
+            <input type="text1" id="beratbadan8" name="beratbadan8" placeholder="....">%
+        </p>
+        <p><b>b. Tunjukan besar sudut (dalam bentuk drajat) dari berat badan 44 Kg yang dimiliki oleh siswa !</b></p>
+        <p>Penyelesaian :</p>
+        <p>
+        <label for="beratbadan9">Berat badan 44 Kg dimiliki oleh sebanyak</label>
+        <input type="text1" id="beratbadan9" name="beratbadan9" placeholder="....">Siswa
+        </p>
+        <p>Jadi, Rumus untuk diagram lingkaran dalam bentuk derajat adalah :</p>
+        <p>Besar Sudut</p>
+        <p><img src="image/rumus2.png" alt="Gambar Kecil"></p>
+        <p>
+            <label for="beratbadan10">=</label>
+        <input type="text1" id="beratbadan10" name="beratbadan10" placeholder="____">x360&deg;
+        <p><span style="text-decoration: overline;">60</span></p>
+        </p>
+        <p>
+            <label for="beratbadan11">=</label>
+        <input type="text1" id="beratbadan11" name="beratbadan11" placeholder=".....">&deg;
+        </p>
+
+        <p>
+            <label for="beratbadan12">Jadi, Berat badan 44 Kg yang dimiliki oleh 9 siswa adalah</label>
+        <input type="text1" id="beratbadan12" name="beratbadan12" placeholder=".....">&deg;
+        </p>
+    </div>
+
+    <!--AYO  MENALARRRR-->
+    <div class="container">
+        <h1>
+            <img src="image/berpikir.gif" alt="Gambar Kecil"> AYO MENALAR !
+        </h1>
+        <p>Grafik dibawah ini menyajikan penggunaan bahan bakar terhadap waktu (dalam jam) [pada perjalanan sebuah mobil
+            darai kota M ke kota N. Gunakan informasi pada grafik di bawah ini untuk menjawab pertanyaan.
+        </p>
+        <img class="animated-diagram diagram" src="image/diagramtitik.png" alt="Diagram">
+        <p><b>1. Berapa liter bahan bakar yang dihabiskan dalam perjalanan :</b></p>
+        <p>
+        <label for="bahanbakar1">a. Dari titik A ke titik B ?</label>
+        <input type="text1" id="bahanbakar1" name="bahanbakar1" placeholder="...."> Liter
+        </p>
+        <p>
+        <label for="bahanbakar2">b. Dari titik D ke titik E ?</label>
+        <input type="text1" id="bahanbakar2" name="bahanbakar2" placeholder="...."> Liter
+        </p>
+        <p><b>2. Coba perhatikan kembali grafik di atas secara baik.</b></p>
+        <p>
+        <label for="bahanbakar3">a. Berapa liter bahan bakar total yang dihabiskan dalam perjalanan tersebut ?</label>
+        <input type="text1" id="bahanbakar3" name="bahanbakar3" placeholder="....">
+        </p>
+        <p>
+        <label for="bahanbakar4">b. Pada titik mana yang menunjukan perubahan drastis banyaknya bahan bakar ?</label>
+        <input type="text1" id="bahanbakar4" name="bahanbakar4" placeholder="....">
+        </p>
+    </div>
+
+<!--MATERI AYO BERLATIH-->
+<div class="container">
+    <h1>
+        <img src="image/berlatih.gif" alt="Gambar Kecil"> AYO BERLATIH !
+    </h1>
+    <div class="box-container">
+        <div class="box">
+            <strong>Soal Pilihan Ganda</strong>(klik untuk membaca aturan)
+            <div class="description-box">
+                Petunjuk Pengerjaan :
+                <p>Pilihlah salah satu jawaban (a,b,c atau d) dengan cara men-klik salah satu pilihan jawaban yang benar !</p>
+            </div>
+        </div>
+    </div>
+    <div class="container-baru">
+        <p>Berakhirnya pandemi Covid-19 membuat keadaan perlahan kembali pulih, salah satunya penjualan mobil mewah di Indonesia
+            yang mengalamai peningkataan usai merosot tajam di awal pandemi, bahkan sampai ada yang mengalami out of stock.
+            Diagram berikut merupakan data penjualan mobil mewah di indonesia berdasarkan data Gaikindo.
+        </p>
+        <img class="animated-diagram diagram" src="image/diagrambatang.png" alt="Diagram">
+    </div>
+    <!--PILIHAN GANDA-->
+    <div class="question">
+        <p>1. Urutan mobil-mobil tersebut berdasarkan benyak mobil yang terjual dilanjutkan dengan abjad nama mobil secara meningkat adalah ....</p>
+    </div>
+    <form id="pilihanForm">
+        <div class="options">
+            <label class="option">
+                <input type="radio" id="pilihan" name="pilihan" value="A. BMW, Ferari, Marcedes-Benz, Rools Rocye,Lamborgini,McLaren"> A. BMW, Ferari, Marcedes-Benz, Rools Rocye,Lamborgini,McLaren
+            </label>
+            <label class="option">
+                <input type="radio" id="pilihan" name="pilihan" value="B.Ferari,Marcedes-Benz,Rools Rocye, BMW, Lamborgini."> B.Ferari,Marcedes-Benz,Rools Rocye, BMW, Lamborgini.
+            </label>
+            <label class="option">
+                <input type="radio" id="pilihan" name="pilihan" value="C. BMW, Ferari,Marcedes-Benz,Rools Rocye,McLaren,Lamborgini"> C. BMW, Ferari,Marcedes-Benz,Rools Rocye,McLaren,Lamborgini
+            </label>
+            <label class="option">
+                <input type="radio" id="pilihan" name="pilihan" value="D. Lamborgini, Mc Laren, Rools Rocye, BMW, Ferari, Marcedes-Benz."> D. Lamborgini, Mc Laren, Rools Rocye, BMW, Ferari, Marcedes-Benz.
+            </label>
+        </div>
+    </form>
+    <div class="box-container">
+        <div class="box">
+            <strong>Soal Uraian</strong>(klik untuk membaca aturan)
+            <div class="description-box">
+                Petunjuk Pengerjaan :
+                <p>Tulis Jawaban kalian pada kolom yang sudah disediakan</p>
+            </div>
+        </div>
+    <!--SOAL ESAYYY-->
+    <div class="container-baru">
+        <p>2. Perhatikan kembali gambar diagram batang yang terdapat pada soal nomor 1 mengenai data penjualan mobil mewah di Indonesia !</p>
+        <p>
+        <p>Berdasarkan gambar diagram batang tersebut apa yang dapat kalian simpulkan tentang banyaknya mobil mewah yang terjual di Indonesia 
+            setelah merosot tajam saat pandemi Covid - 19 ?.</p>
+        <textarea id="jawabanuraian" name="jawabanuraian" rows="4" cols="50"></textarea>
+        </p>
+    </div>
+</div>
+</div>
+<!--PILIHAN GANDA KOMPLEKS-->
+<div class="container">
+    <h1>
+        <img src="image/berlatih.gif" alt="Gambar Kecil"> AYO BERLATIH !
+    </h1>
+    <div class="box-container">
+        <div class="box">
+            <strong>Soal Pilihan Ganda Kompleks</strong>(klik untuk membaca aturan)
+            <div class="description-box">
+                Petunjuk Pengerjaan :
+                <p>Bacalah text berikut untuk menjawab pertanyaan nomor 3 dan 4 !</p>
+            </div>
+        </div>
+    </div>
+    <div class="container-baru">
+      
+        <div class="question">
+            <p>3. Menurut Badan Pusat Statistik yang dimaksud pengangguran terbuka adalah angkatan kerja yang sama sekali tidak mempunyai pekerjaan.
+                Diangram batang dibawah ini menunjukan rata-rata tingkat pengangguran terbuka laki-laki dan perempuan dari
+                Agustus 2019 sampai Agustus 2023.
+            </p>
+            <img class="animated-diagram diagram" src="image/dgptp.png" alt="Diagram">
+            <p>Dengan melihat diagram tersebut, tulis pada kolom yang disediakan “benar” atau “salah” pada setiap pernyataan berdasarkan informasi di atas!</p>
+            <!--PERTANYAAN KOMPLEKS 1-->
+            <p>a. Angkatan kerja pada tahun berikutnya semakin bertambah sehingga pengangguran berkurang.</p>
+            <form id="quiz-form">
+                <div class="options">
+                    <select id="pilgankompleks1">
+                        <option></option>
+                        <option value="Benar">Benar</option>
+                        <option value="salah">Salah</option>
+                    </select>
+                </div>
+            </form>
+             <!--PERTANYAAN KOMPLEKS 2-->
+             <p>b. Tingkat pengangguran terbuka perempuan semakin menurun karena laki-laki banyak bekerja pada tahun berikutnya .</p>
+             <form id="quiz-form">
+                 <div class="options">
+                     <select id="pilgankompleks2">
+                         <option></option>
+                         <option value="Benar">Benar</option>
+                         <option value="salah">Salah</option>
+                     </select>
+                 </div>
+             </form>
+              <!--PERTANYAAN KOMPLEKS 3-->
+            <p>c. Penganguran akan cenderung menurun baik laki-laki maupun perem[uan pada tahun berikutnya.</p>
+            <form id="quiz-form">
+                <div class="options">
+                    <select id="pilgankompleks3">
+                        <option></option>
+                        <option value="Benar">Benar</option>
+                        <option value="salah">Salah</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--SOAL URAIAN SINGKAT-->
+    <div class="box-container">
+        <div class="box">
+            <strong>Soal Isian Singkat</strong>(klik untuk membaca aturan)
+            <div class="description-box">
+                Petunjuk Pengerjaan :
+                <p>Tulis jawaban kalian pada kolom yang sudah disediakan ! (Tulis jawaban ahir saja berupa angka!).</p>
+            </div>
+        </div>
+    </div>
+    <!--CONTAINER ISIAN SINGKAT-->
+    <div class="container-baru">
+        <p>4. Perhatikan kembali diagram pada soal nomor 3 mengenai tingkat pengangguran terbuka (TPT) berdasarkan jenis kelamin (persen),
+            Agustus 2019 - Agustus 2023. Berdasarkan diagram tersebut jawablah beberapa pertanyaan berikut ini !
+        </p>
+        <p>
+            <label for="isiansingkat1">a. Selisish paling banyak tingkat pengangguran terbuka (TPT) antara laki-laki dan perempuan terjadi pada tahun</label>
+            <input type="text1" id="isiansingkat1" name="isiansingkat1" placeholder="....">
+        </p>
+        <p>
+            <label for="isiansingkat2">b. Selisish paling banyak tingkat pengangguran terbuka (TPT) antara laki-laki dan perempuan terjadi pada tahun</label>
+            <input type="text1" id="isiansingkat2" name="isiansingkat2" placeholder="....">
+        </p>
+    </div>
+   
+</div>
+
+<div class="container">
+    <h1>
+        <img src="image/berlatih.gif" alt="Gambar Kecil"> AYO BERLATIH !
+    </h1>
+    <div class="box-container">
+        <div class="box">
+            <strong>Soal Menjodohkan</strong>(Klik untuk membaca aturan)
+            <div class="description-box">
+                Petunjuk Pengerjaan :
+                <p>Pasangkanlah pernyataan dan jawaban yang tersedia di bawah ini dengan memasukan kode Jawaban</p>
+                <p>CONTOH : (JAWABAN 1)</p>
+            </div>
+        </div>
+    </div>
+    <p>
+        <strong>Bacalah Teks Berikut !</strong>
+    </p>
+    <p>5. Restoran bintang lima dijalan Andra, Tanggerang kembali menghadirkan lima menu baru. Chef manager restoran bintang lima,
+        Andika mengatakan, menu berupa Nasi Goreng Mexico, Spaghetti Black Pepper, Spaghetti Bolongnese, Chicken Biryani, dan Vegetable Samosa.
+        Dalam satu minggu ini tercatat jumlah pengunjung yang mencoba menu baru bintang lima tersebut dalah 750 orang. Sepertinya pada diagram lingkaran di bawah ini.
+    </p>
+    <img class="animated-diagram diagram" src="image/diagramlingres.png" alt="Diagram">
+    <p>
+        Lima menu baru restoran bintang lima yang terjual adalah Nasi Goreng Mexico 44 %, Spaghetti Black Pepper 22 %, Spaghetti Bolongnese 16 %,
+        Chicken Biryani 10 %, dan Vegetable Samosa 8%.</p>
+        <p>Pasangkanlah pernyataan dan jawaban yang tersedia di bawah ini dengan memasukan kode Jawaban
+            CONTOH : (JAWABAN 1)</p>
+    
+    <div class="box-container">
+        <div class="box">
+            <p>
+                <label for="jodoh1">Jumlah Chiken Biryani yang terjual dalam satu minggu.</label>
+                <input type="text2" id="jodoh1" name="jodoh1" placeholder="Masukan Kode Jawaban">
+            </p>
+        </div>
+    </div>
+    <div class="box-container">
+        <div class="box">
+            <p>
+                <label for="jodoh2">Jumlah Nasi Goreng Mexico yang terjual dalam satu minggu</label>
+                <input type="text2" id="jodoh2" name="jodoh2" placeholder="Masukan Kode Jawaban">
+            </p>
+        </div>
+    </div>
+    <div class="box-container">
+        <div class="box">
+            <p>
+                <label for="jodoh3">Selisih banyaknya menu baru Spaghetti Bolongnese dan Vegetable Samosa yang terjual dalam satu minggu.</label>
+                <input type="text2" id="jodoh3" name="jodoh3" placeholder="Masukan Kode Jawaban">
+            </p>
+        </div>
+        <div class="box-container">
+        <div class="box">
+            <strong>Jawaban 1<p>60 Orang</p></strong>
+        </div>
+        <div class="box-container">
+        <div class="box">
+            <strong>Jawaban 2<p>75 Orang</p></strong>
+        </div>
+    </div>
+    <div class="box-container">
+        <div class="box">
+            <strong>Jawaban 3<p>330 Orang</p></strong>
+        </div>
+    </div>
+    </div>
+    <p>
+        <!-- Tombol Kirim Jawaban -->
+  <button id="kirimJawaban" onclick="kirimJawaban()">❤️FINISH❤️</button>
+  </p>
+
+</div>
+
+
+    <button id="soundButton" onclick="toggleSound()">
+            </button>
+     <!-- Audio Player -->
+     <audio id="audio" autoplay loop>
+       <!-- <source src="audio/bgmusic.mp3" type="audio/mpeg"> --><!-- Ganti 'music.mp3' dengan URL file musik Anda -->
+        Your browser does not support the audio element.
+    </audio>
+    <script>
+         function toggleSound() {
+            var audio = document.getElementById("audio");
+            var soundImage = document.getElementById("soundImage");
+
+            if (soundOn) {
+                audio.pause(); // Berhenti memutar suara
+                soundImage.src = "image/sound_off.png"; // Ganti dengan gambar suara non-aktif
+            } else {
+                audio.play(); // Memutar suara
+                soundImage.src = "image/sound_on.png"; // Ganti dengan gambar suara aktif
+            }
+            soundOn = !soundOn; // Mengganti status suara
+        }
+        //untuk fungsi kirim
+        function kirimJawaban() {
+            // Ambil nilai nama pengirim
+            const namaPengirim = document.getElementById("namaPengirim").value;
+
+            // Ambil nilai kelas pengirim
+            const kelasPengirim = document.getElementById("kelasPengirim").value;
+
+            // Ambil nilai jawaban dari textarea
+            const jawabanMengamatiVidio1 = document.getElementById("jawabanmengamatividio1").value;
+            const jawabanMengamatiVidio2 = document.getElementById("jawabanmengamatividio2").value;
+            // Ambil nilai jawaban dari jawaban
+            const jawabanHarike3 = document.getElementById("jawabanHari3").value;
+            const jawabanHarike4 = document.getElementById("jawabanHari4").value;
+            const jawabanHarike5 = document.getElementById("jawabanHari5").value;
+            const jawabanHarike7 = document.getElementById("jawabanHari7").value;
+            // Ambil nilai jawaban dari tinggi Tomat Pada hari ke
+            const tinggiHari1 = document.getElementById("tinggiHari1").value;
+            const tinggiHari2 = document.getElementById("tinggiHari2").value;
+            // Ambil nilai jawaban dari selisih tinggi tomat
+            const selisih = document.getElementById("selisih").value;
+             // Ambil nilai jawaban dari ayo menanya 
+             const pertanyaan1 = document.getElementById("pertanyaan1").value;
+             const pertanyaan2 = document.getElementById("pertanyaan2").value;
+             const pertanyaan3 = document.getElementById("pertanyaan3").value;
+             // Ambil nilai jawaban dari diagram lingkaran 
+             const beratbadan1 = document.getElementById("beratbadan1").value;
+             const beratbadan2 = document.getElementById("beratbadan2").value;
+             const beratbadan3 = document.getElementById("beratbadan3").value;
+             const beratbadan4 = document.getElementById("beratbadan4").value;
+             const beratbadan5 = document.getElementById("beratbadan5").value;
+             const beratbadan6 = document.getElementById("beratbadan6").value;
+             const beratbadan7 = document.getElementById("beratbadan7").value;
+             const beratbadan8 = document.getElementById("beratbadan8").value;
+             const beratbadan9 = document.getElementById("beratbadan9").value;
+             const beratbadan10 = document.getElementById("beratbadan10").value;
+             const beratbadan11 = document.getElementById("beratbadan11").value;
+             const beratbadan12 = document.getElementById("beratbadan12").value;
+             //Abmbil data Bahan Bakar
+             const bahanbakar1 = document.getElementById("bahanbakar1").value;
+             const bahanbakar2 = document.getElementById("bahanbakar2").value;
+             const bahanbakar3 = document.getElementById("bahanbakar3").value;
+             const bahanbakar4 = document.getElementById("bahanbakar4").value;
+             //AMBILDATA PILGAN
+            const pilihan = document.getElementById("pilihan").value;
+            //AMBIL DATA ESAI
+            const jawabanuraian = document.getElementById("jawabanuraian").value; 
+            const pilgankompleks1 = document.getElementById("pilgankompleks1").value;
+            const pilgankompleks2 = document.getElementById("pilgankompleks2").value;
+            const pilgankompleks3 = document.getElementById("pilgankompleks3").value;
+            //Ambil Data Isian Singkat
+            const isiansingkat1 = document.getElementById("isiansingkat1").value;
+            const isiansingkat2 = document.getElementById("isiansingkat2").value;
+            //Ambil Data Menjodohkan
+            const jodoh1 = document.getElementById("jodoh1").value;
+            const jodoh2 = document.getElementById("jodoh2").value;
+            const jodoh3 = document.getElementById("jodoh3").value;
+            
+
+
+
+
+            // Gabungkan jawaban ke dalam satu pesan
+            const pesan = `Nama Pengirim: ${namaPengirim} 
+            \nKelas: ${kelasPengirim}
+            \n<b>A. JAWABAN MATERI AYO MENGAMATI</b>
+            \n<b>SOAL : </b>
+            \n1. Apa yang kamu dapat dari vidio tersebut ?
+            \n<b>JAWABAN : </b>
+            \n<u>${jawabanMengamatiVidio1}</u>
+            \n<b>SOAL : </b>
+            \n2. Dapatkah data tersebut disajikan dalam bentuk diagram ? jika iya, benarkah hal tersebut justru mempermudah pekerjaan kita ?: 
+            \n<b>JAWABAN : </b>
+            \n<u>${jawabanMengamatiVidio2}</u>
+            \n<b>B. JAWABAN MATERI COBA PERHATIKAN</b>
+            \n<b>SOAL</b>
+            \n<b>a. Tentukan Tinggi Tomat Pada Hari Ke - !</b>
+            \n<b>JAWABAN :</b>
+            \n1. Jawaban Hari ke - 12 : <u>${jawabanHarike3}</u>
+            \n2. Jawaban Hari Ke - 13 : <u>${jawabanHarike4}</u>
+            \n3. Jawaban Hari Ke - 14 : <u>${jawabanHarike5}</u>
+            \n4. Jawaban Hari Ke - 15 : <u>${jawabanHarike7}</u>
+            \n<b>SOAL :</b>
+            \n<b>b. Secara berturut-turut pertumbuhan tanaman tomat paling tinggi terjadi pada hari ? </b>
+            \nke : <u>${tinggiHari1}</u> Dan hari ke : <u>${tinggiHari2}</u>
+            \n<b>SOAL :</b>
+            \n<b>c. Selisih tinggi tanaman tomat di hari ke - 13 sampai hari ke - 16 adalah ? </b>
+            \n<b>JAWABAN :</b>
+            \n<u>${selisih} CM</u>
+            \n<b>C. JAWABAN MATERI AYO MENANYA !</b>
+            \n<b>Pertanyaan 1</b>
+            \n<u>${pertanyaan1}</u>
+            \n<b>Pertanyaan 2</b>
+            \n<u>${pertanyaan2}</u>
+            \n<b>Pertanyaan 3</b>
+            \n<u>${pertanyaan3}</u>
+            \n<b>SOAL :</b>
+            \n<b>a. Berapa banyak siswa yanag mempunyai berat badan 41 kg ? kemudian ubahlah dalam bentuk persen !</b>
+            \n<b>JAWABAN :</b>
+            \nBerat badan 42 Kg = <u>${beratbadan1}</u> Siswa
+            \nBerat badan 43 Kg = <u>${beratbadan2}</u> Siswa
+            \n<b>SOAL :</b>
+            \nJika jumlah seluruh siswa sebanyak 60 siswa, maka banyak siswa yang mempunyai berat badan 41 Kg yaitu
+            \n<b>JAWABAN :</b>
+            \n = 60 - <u>${beratbadan3}</u> Siswa
+            \n = <u>${beratbadan4}</u> Siswa
+            \n Jadi, berat badan 41 Kg dimiliki oleh <u>${beratbadan5}</u>
+            \n<b>SOAL :</b>
+            \n<b>Mengubah dalam bentuk persen</b>
+            \n<b>JAWABAN :</b>
+            \n= 12 per ...x100% <u>${beratbadan6}</u>
+            \n= <u>${beratbadan7}</u>
+            \nJadi, berat badan 41 Kg yang dimilik oleh 12 Siswa adalah <u>${beratbadan8}</u>%
+            \n<b>SOAL :</b>
+            \n<b>b. Tunjukanlah besar sudut (dalam bentuk derajat) dari berat badan 44 Kg yang dimiliki oleh siswa !</b>
+            \n<b>JAWABAN :</b>
+            \nBerat badan 44 kg dimiliki oleh sebanyak <u>${beratbadan9}</u> Siswa
+            \nBesar Sudut = <u>${beratbadan10}</u>/60 x 360°
+            \n= <u>${beratbadan11}</u>°;
+            \nJadi, berat badan 44 Kg yang dimiliki oleh 9 siswa adalah = <u>${beratbadan12}</u>°
+            \n<b>JAWABAN MATERI AYO MENALAR !</b>
+            \n<b>SOAL :</b>
+            \n<b>1. Berapa liter bahana bakar yanag dihabiskan dalam perjalanan :</b>
+            \n<b>JAWABAN</b>
+            \na. Dari titik A ke titik B ? <u>${bahanbakar1}</u> Liter
+            \nb. Dari titik D ke titik E ? <u>${bahanbakar2}</u> Liter
+            \n<b>SOAL :</b>
+            \n<b>2. Coba perhatikan kembali grafik diatas secara baik.</b>
+            \n<b>JAWABAN</b>
+            \na.Berapa liter bahan bakar total yanag dihabiskan dalam perjalanan tersebut ?<u>${bahanbakar3}</u>
+            \nb. Pada titik mana yanag menunjukan perubahana drastis banyaknya bahan bakar ?<u>${bahanbakar4}</u>
+            \n<b>JAWABAN MATERI AYO BERLATIH</b>
+            \n<b>JAWABAN PILIHAN GANDA</b>
+            \n1. <u>${pilihan}</u> 
+            \n<b>JAWABAN SOAL URAIAN</b>
+            \n<u>${jawabanuraian}</u>
+            \n<b>JAWABAN Pilihan Ganda Kompleks</b>
+            \njawaban kompleks : ${pilgankompleks1}
+            \njawaban kompleks : ${pilgankompleks2}
+            \njawaban kompleks : ${pilgankompleks3}
+            \n<b>JAWABAN SOAL ISIAN SINGKAT</b>
+            \na.${isiansingkat1}
+            \nb.${isiansingkat2}
+            \n<b>JAWABAN SOAL MENJODOHKAN</b>
+            \n1.${jodoh1}
+            \n2.${jodoh1}
+            \n3.${jodoh1}`;
+            
+
+            // Token bot Anda
+            const tokenBot = "6662682480:AAGo3aRFtVcMjEkFKLVpS7zck4gwtMCU49w"; // Ganti dengan token bot Anda
+
+            // ID chat bot atau grup tempat Anda ingin mengirim pesan
+            const chatId = "1312392114"; // Ganti dengan ID chat bot atau grup Anda
+
+            // Buat objek data yang akan dikirimkan
+            const data = {
+                chat_id: chatId,
+                text: pesan,
+                parse_mode: "HTML" // Menggunakan mode parse HTML agar tag HTML dapat diinterpretasikan
+            };
+
+            // Buat URL untuk mengirim pesan menggunakan metode POST
+            const url = `https://api.telegram.org/bot${tokenBot}/sendMessage`;
+            //RESET ISI KOTAK
+            function resetTextAreas() {
+            document.getElementById("namaPengirim").value = "";
+            document.getElementById("kelasPengirim").value = "";
+            document.getElementById("jawabanmengamatividio1").value = "";
+            document.getElementById("jawabanmengamatividio2").value = "";
+            document.getElementById("jawabanHari3").value = "";
+            document.getElementById("jawabanHari4").value = "";
+            document.getElementById("jawabanHari5").value = "";
+            document.getElementById("jawabanHari7").value = "";
+            document.getElementById("tinggiHari1").value = "";
+            document.getElementById("tinggiHari2").value = "";
+            document.getElementById("selisih").value = "";
+            document.getElementById("pertanyaan1").value = "";
+            document.getElementById("pertanyaan2").value = "";
+            document.getElementById("pertanyaan3").value = "";
+            document.getElementById("beratbadan1").value = "";
+            document.getElementById("beratbadan2").value = "";
+            document.getElementById("beratbadan3").value = "";
+            document.getElementById("beratbadan4").value = "";
+            document.getElementById("beratbadan5").value = "";
+            document.getElementById("beratbadan6").value = "";
+            document.getElementById("beratbadan7").value = "";
+            document.getElementById("beratbadan8").value = "";
+            document.getElementById("beratbadan9").value = "";
+            document.getElementById("beratbadan10").value = "";
+            document.getElementById("beratbadan11").value = "";
+            document.getElementById("beratbadan12").value = "";
+            document.getElementById("bahanbakar1").value = "";
+            document.getElementById("bahanbakar2").value = "";
+            document.getElementById("bahanbakar3").value = "";
+            document.getElementById("bahanbakar4").value = "";
+            
+            
+        }
+
+
+            // Kirim pesan ke bot menggunakan fetch
+            fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    alert("Jawaban berhasil terkirim ke bot Telegram.");
+                    resetTextAreas(); // Memanggil fungsi resetTextAreas
+                    window.location.href ="home.html"
+                } else {
+                    alert("Terjadi kesalahan dalam mengirim pesan.");
+                }
+            })
+            .catch(error => {
+                alert("Terjadi kesalahan dalam mengirim pesan: " + error);
+            });
+        }
+
+        //fungsitombol ayo berlatihhh
+        const boxes = document.querySelectorAll('.box');
+
+        boxes.forEach(box => {
+            box.addEventListener('click', () => {
+                boxes.forEach(otherBox => {
+                    if (otherBox !== box) {
+                        otherBox.classList.remove('active');
+                    }
+                });
+                box.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>

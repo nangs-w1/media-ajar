@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Media Pembelajaran Interaktif</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('image/bg.gif'); /* Ganti 'background.jpg' dengan URL gambar latar belakang Anda */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            padding: 20px; /* Mengurangi padding untuk memuat judul dan deskripsi */
+            background-color: rgba(0, 123, 255, 0.8); /* Menggunakan warna latar belakang transparan */
+            backdrop-filter: blur(10px); /* Efek blur pada latar belakang */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 30px;
+            display: flex;
+            justify-content: space-around; /* Menyusun elemen ke sisi kiri dan kanan */
+            align-items: center;
+            color: #fff;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .container:hover {
+            background-color: rgba(0, 86, 179, 0.8); /* Warna latar belakang saat dihover */
+        }
+
+        .left-content {
+            flex: 1; /* Mengisi 1 bagian dari flex container */
+            text-align: left;
+            padding: 20px; /* Padding untuk konten kiri */
+        }
+
+        .right-content {
+            flex: 2; /* Mengisi 2 bagian dari flex container */
+            text-align: center;
+            padding: 20px; /* Padding untuk form login */
+        }
+
+        .container h1 {
+            margin-bottom: 10px;
+            font-size: 24px; /* Ukuran font judul */
+        }
+
+        .container p {
+            font-size: 16px; /* Ukuran font deskripsi */
+        }
+
+        .container h2 {
+            margin-bottom: 20px;
+            color: #fff; /* Warna judul form login */
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            color: #fff;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            background-color: #f9f9f9;
+            color: #333;
+            transition: border-color 0.3s ease-in-out;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #007BFF;
+            transform: scale(1.02);
+        }
+
+        .form-group button {
+            width: 100%;
+            padding: 8px 15px; /* Mengatur padding agar tombol lebih kecil */
+            background-color: #fff;
+            color: #007BFF;
+            border: 1px solid #007BFF;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+
+        .form-group button:hover {
+            background-color: #0056b3;
+            color: #fff;
+        }
+   
+    /* Aturan CSS untuk layar menengah (tablet) */
+    @media screen and (max-width: 1023px) {
+        /* Tambahkan gaya CSS untuk layar menengah di sini */
+        .container {
+            max-width: 100%;
+            flex-direction: column;
+        }
+
+        .left-content,
+        .right-content {
+            flex: none;
+            width: 100%;
+        }
+
+        .container h1 {
+            font-size: 20px;
+        }
+
+        .container p {
+            font-size: 14px;
+        }
+    }
+
+    /* Aturan CSS untuk layar kecil (ponsel) */
+    @media screen and (max-width: 767px) {
+        /* Tambahkan gaya CSS untuk layar kecil di sini */
+        .container {
+            max-width: 100%;
+            flex-direction: column;
+        }
+
+        .left-content,
+        .right-content {
+            flex: none;
+            width: 100%;
+        }
+
+        .container h1 {
+            font-size: 18px;
+        }
+
+        .container p {
+            font-size: 12px;
+        }
+    }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left-content">
+            <h1>Lembar Kerja Peserta Didik (LKPD) Digital</h1>
+            <p>Materi Statistika Sub Penyajian Data Kelas VII SMP/MTs Semester Genap</p>
+        </div>
+        <div class="right-content">
+            <h2>MARI BELAJAR</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="namaPanjang">Nama Lengkap:</label>
+                    <input type="text" id="namaPanjang" name="namaPanjang" oninput="capitalizeFirstLetter()" required>
+                </div>
+                <div class="form-group">
+                    <label for="kelas">Kelas:</label>
+                    <input type="text" id="kelas" name="kelas" required>
+                </div>
+                <div class="form-group">
+                    <button type="button" onclick="redirectToWelcomePage()">Mulai Belajar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function capitalizeFirstLetter() {
+            var input = document.getElementById("namaPanjang");
+            var inputValue = input.value;
+            
+            // Ubah huruf pertama menjadi huruf kapital
+            inputValue = inputValue.charAt(0).toUpperCase() + inputValue.slice(1);
+            
+            // Setel kembali nilai input
+            input.value = inputValue;
+        }
+
+        function redirectToWelcomePage() {
+            var namaPanjang = document.getElementById("namaPanjang").value;
+            var kelas = document.getElementById("kelas").value;
+
+            // Cek jika kedua field sudah diisi
+            if (namaPanjang && kelas) {
+                // Redirect ke halaman selamat datang dengan parameter namaPanjang dan kelas
+                window.location.href = "home.html?namaPanjang=" + encodeURIComponent(namaPanjang) + "&kelas=" + encodeURIComponent(kelas);
+            } else {
+                alert("Harap isi Nama Panjang dan Kelas terlebih dahulu.");
+            }
+        }
+    </script>
+</body>
+</html>

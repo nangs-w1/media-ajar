@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Pembelajaran</title>
+    <style>
+        /* Styles untuk tampilan website */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('image/bg.gif'); /* Ganti 'background.jpg' dengan URL gambar latar belakang Anda */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        header {
+            background-color: #0077b6;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 36px;
+        }
+        h2 {
+            text-align: center;
+        }
+        .container {
+        max-width: 800px;
+        margin: 20px auto;
+        background-color: #fff;
+        padding: 85px;
+        border-radius: 100px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        display: flex; /* Menggunakan display flex */
+        flex-direction: column; /* Stack elemen vertikal */
+        align-items: center; /* Tengahkan secara horizontal */
+        justify-content: center; /* Tengahkan secara vertikal */
+        min-height: 50vh; /* Set ketinggian minimum sesuai tinggi layar */
+}
+        /* Animasi GIF */
+        .animated-gif {
+            width: 100%;
+            max-height: 300px;
+            animation: bounce 2s infinite;
+        }
+        /* Kotak menu */
+        .menu-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        .menu-box {
+            text-align: center;
+            position: relative;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            transition: transform 0.3s ease-in-out;
+            cursor: pointer;
+            height: 150px;
+            margin: 10px;
+            width: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* Mengatur overflow untuk gambar GIF */
+            position: relative;
+        }
+        .menu-box:hover {
+            transform: scale(1.05);
+            background-color: #f0e68c; /* Warna kuning saat hover */
+        }
+        .menu-box .animated-gif {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 150px; /* Sesuaikan dengan lebar kotak menu */
+            height: 150px; /* Sesuaikan dengan tinggi kotak menu */
+        }
+        /* Teks menu */
+        .menu-text {
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff; /* Warna teks putih */
+            margin-top: 10px;
+            z-index: 1; /* Teks menu ada di atas gambar GIF */
+            display: block; /* Tampilkan teks secara default */
+            background-color: #0077b6; /* Warna latar belakang teks */
+            padding: 5px 10px; /* Padding teks */
+            border-radius: 5px; /* Radius sudut teks box */
+        }
+        /* CSS saat hover untuk teks */
+        .menu-box:hover .menu-text {
+            display: none; /* Sembunyikan teks saat hover */
+        }
+        /* Keterangan bawah menu box */
+        .menu-description {
+            font-size: 14px;
+            color: #333; /* Warna teks abu-abu */
+            margin-top: 5px;
+            text-align: center;
+        }
+        /* Tambahkan teks baru saat hover */
+        .menu-box:hover::after {
+            content: ""; /* Teks yang akan ditambahkan saat hover */
+            font-size: 14px;
+            color: #333; /* Warna teks abu-abu */
+            margin-top: 5px;
+            text-align: center;
+            display: block;
+        }
+        /* Gaya untuk link */
+        .menu-link {
+            text-decoration: none;
+            color: inherit; /* Wariskan warna dari parent */
+        }
+        /* Gaya untuk audio player */
+        audio {
+            display: none; /* Sembunyikan pemutar audio */
+        }
+        /* Gaya untuk tombol suara */
+        #soundButton {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        #soundImage {
+            width: 40px;
+            height: 40px;
+        }
+    
+
+    /* Aturan CSS untuk layar menengah (tablet) */
+    @media screen and (max-width: 1023px) {
+        /* Tambahkan gaya CSS untuk layar menengah di sini */
+        .container {
+            max-width: 100%;
+            flex-direction: column;
+        }
+
+        .left-content,
+        .right-content {
+            flex: none;
+            width: 100%;
+        }
+
+        .container h1 {
+            font-size: 20px;
+        }
+
+        .container p {
+            font-size: 14px;
+        }
+    }
+
+    /* Aturan CSS untuk layar kecil (ponsel) */
+    @media screen and (max-width: 767px) {
+        /* Tambahkan gaya CSS untuk layar kecil di sini */
+        .container {
+            max-width: 100%;
+            flex-direction: column;
+        }
+
+        .left-content,
+        .right-content {
+            flex: none;
+            width: 100%;
+        }
+
+        .container h1 {
+            font-size: 18px;
+        }
+
+        .container p {
+            font-size: 12px;
+        }
+        .menu-container{
+            max-width: 100%;
+            flex-direction: column;
+        }
+        .h1{
+            font-size: 30px;
+        }
+        #welcomeMessage {
+        font-size: 18px;
+    }
+    #soundImage {
+            width: 30px;
+            height: 30px;
+        }
+        #soundButton {
+            position: fixed;
+            top: 2px;
+            left: 2px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+    }
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1 id="welcomeMessage">Selamat Datang di Media Pembelajaran</h1>
+    </header>
+    <div class="container">
+        <h2>Pilih Menu:</h2>
+        <div class="menu-container">
+            <div class="menu-box petunjuk">
+                <a href="petunjuk.html" class="menu-link">
+                    <img class="animated-gif" src="image/petunjuk.gif" alt="Petunjuk">
+                </a>
+                <p class="menu-text">Petunjuk Penggunaan</p>
+            </div>
+            <div class="menu-box kompetensi">
+                <a href="halaman_kompetensi.html" class="menu-link">
+                    <img class="animated-gif" src="image/materi.gif" alt="Kompetensi Dasar">
+                </a>
+                <p class="menu-text">Kompetensi Dasar(KD)</p>
+            </div>
+            
+            <!-- Menu Kompetensi Dasar -->
+            <div class="menu-box materi">
+                <a href="halaman_materi.html" class="menu-link">
+                    <img class="animated-gif" src="image/latihan.gif" alt="Materi">
+                </a>
+                <p class="menu-text">Materi</p>
+            </div>
+            <!-- Menu Petunjuk Penggunaan -->
+            <div class="menu-box pengembang">
+                <a href="halaman_pengembang.html" class="menu-link">
+                    <img class="animated-gif" src="image/pengembang.gif" alt="Pengembang">
+                </a>
+                <p class="menu-text">Pengembangan</p>
+            </div>
+        </div>
+        <button id="soundButton" onclick="toggleSound()">
+            <img id="soundImage" src="image/sound_on.png" alt="Sound">
+        </button>
+    </div>
+    <!-- Audio Player -->
+    <audio id="audio" autoplay loop>
+        <source src="audio/bgmusic.mp3" type="audio/mpeg"> <!-- Ganti 'music.mp3' dengan URL file musik Anda -->
+        Your browser does not support the audio element.
+    </audio>
+    <script>
+        var soundOn = true; // Status awal suara aktif
+
+        // Ambil namaPanjang dari parameter URL
+        var urlParams = new URLSearchParams(window.location.search);
+        var namaPanjang = urlParams.get("namaPanjang");
+
+        if (namaPanjang) {
+            // Update teks selamat datang dengan namaPanjang
+            document.getElementById("welcomeMessage").textContent = "Selamat Datang, " + namaPanjang + " di Media Pembelajaran";
+        }
+
+        function toggleSound() {
+            var audio = document.getElementById("audio");
+            var soundImage = document.getElementById("soundImage");
+
+            if (soundOn) {
+                audio.pause(); // Berhenti memutar suara
+                soundImage.src = "image/sound_off.png"; // Ganti dengan gambar suara non-aktif
+            } else {
+                audio.play(); // Memutar suara
+                soundImage.src = "image/sound_on.png"; // Ganti dengan gambar suara aktif
+            }
+            soundOn = !soundOn; // Mengganti status suara
+        }
+    </script>
+</body>
+</html>

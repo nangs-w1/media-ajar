@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Kompetensi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-image: url('image/bg.jpg'); /* Ganti 'image/background.jpg' dengan URL gambar latar belakang Anda */
+            background-size: cover; /* Agar gambar latar belakang mencakup seluruh laman */
+            background-position: center; /* Posisi gambar latar belakang ke tengah */
+        }
+
+        .box-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box {
+            width: 300px;
+            padding: 20px;
+            background-color: rgba(52, 152, 219, 0.8);
+            margin: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #fff;
+            font-size: 18px;
+            transition: transform 0.3s ease-in-out;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .box:hover {
+            transform: scale(1.1);
+        }
+
+        .description-box {
+            background-color: rgba(1, 18, 29, 0.8);
+            color: #fff;
+            text-align: justify;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            display: none;
+            text-align: left;
+            position: absolute;
+            top: 100%; /* Letakkan di bawah box */
+            left: 0;
+            right: 0;
+            z-index: 1; /* Tampilkan di atas box */
+        }
+
+        .box.active .description-box {
+            display: block;
+        }
+
+        .animate-button {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .animate-button button {
+            background-color: #e74c3c;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .animate-button button:hover {
+            background-color: #c0392b;
+        }
+
+        /* Tambahkan gaya untuk tombol kembali */
+        .back-button {
+            margin-top: 0px;
+            text-align: center;
+        }
+
+        .back-button a {
+            background-color: #b929ad;
+            color: #fff;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .back-button a:hover {
+            background-color: #1c638e;
+        }
+        audio {
+            display: none; /* Sembunyikan pemutar audio */
+        }
+        /* Gaya untuk tombol suara */
+        #soundButton {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        #soundImage {
+            width: 40px;
+            height: 40px;
+        }
+    
+    /* Aturan CSS untuk layar menengah (tablet) */
+    @media screen and (max-width: 1023px) {
+        /* Tambahkan gaya CSS untuk layar menengah di sini */
+        .container {
+            max-width: 100%;
+            flex-direction: column;
+        }
+
+        .left-content,
+        .right-content {
+            flex: none;
+            width: 100%;
+        }
+
+        .container h1 {
+            font-size: 20px;
+        }
+
+        .container p {
+            font-size: 14px;
+        }
+    }
+
+    /* Aturan CSS untuk layar kecil (ponsel) */
+@media screen and (max-width: 767px) {
+    /* Mengubah ukuran font untuk judul */
+    .box {
+        font-size: 16px;
+        width: 250px; /* Mengurangi lebar box */
+    }
+
+    /* Mengubah margin antara box */
+    .box {
+        margin: 10px;
+    }
+
+    /* Mengubah ukuran font pada description-box */
+    .description-box {
+        font-size: 12px;
+        padding: 20px; /* Mengurangi padding pada description-box */
+    }
+
+    /* Mengubah ukuran font pada tombol kembali */
+    .back-button a {
+        padding: 8px 16px;
+        font-size: 16px;
+    }
+
+    /* Mengubah ukuran tombol suara */
+    #soundButton {
+        top: 10px;
+        left: 10px;
+    }
+
+    #soundImage {
+        width: 30px;
+        height: 30px;
+    }
+}
+
+
+    </style>
+</head>
+<body>
+    <div class="box-container">
+        <div class="box">
+            <strong>Kompetensi Inti</strong>
+            <div class="description-box">KI-4 : Mencoba, Mengolah, dan menyaji dalam ranah konkret (menggunakan, mengurangi, merangkai, memodifikasi, dan membuat) dan ranah abstrak (menulis, membaca, menghitung, menggambar, dan mengarang) sesuai dengan yang dipelajari di sekolah dan sumber lain yang sama dalam sudut pandang/teori.</div>
+        </div>
+        <div class="box">
+            <strong>Kompetensi Dasar</strong>
+            <div class="description-box">4.12 Menyajikan dan menafsirkan data dalam bentuk tabel diagram garis, diagram batang, dan diagram lingkaran</div>
+        </div>
+        <div class="box">
+            <strong>Indikator Pembelajaran</strong>
+            <div class="description-box">4.12.1 Menyajikan data dalam bentuk diagram (diagram batang, diagram garis, dan diagram lingkaran)<p>4.12.2 Menafsirkan data dalam bentuk (diagram batang, diagram garis, dan diagram lingkaran)</p></div>
+        </div>
+    </div>
+    
+    <!-- Tombol Kembali -->
+    <div class="back-button">
+        <a href="home.html">KEMBALI</a>
+    </div>
+    <button id="soundButton" onclick="toggleSound()">
+        <img id="soundImage" src="image/sound_on.png" alt="Sound">
+    </button>
+    <!-- Audio Player -->
+    <audio id="audio" autoplay loop>
+        <source src="audio/bgmusic.mp3" type="audio/mpeg"> <!-- Ganti 'music.mp3' dengan URL file musik Anda -->
+        Your browser does not support the audio element.
+    </audio>
+    
+    <script>
+        
+        const boxes = document.querySelectorAll('.box');
+
+        boxes.forEach(box => {
+            box.addEventListener('click', () => {
+                boxes.forEach(otherBox => {
+                    if (otherBox !== box) {
+                        otherBox.classList.remove('active');
+                    }
+                });
+                box.classList.toggle('active');
+            });
+        });
+        
+        
+    </script>
+</body>
+</html>
